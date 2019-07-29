@@ -1,8 +1,27 @@
 # flutter_page_router
 
-[![Version](https://img.shields.io/badge/version-0.0.2-blue.svg)](https://github.com/handoing/flutter_page_router)
+一个flutter的路由管理器
+
+[![Version](https://img.shields.io/badge/version-0.0.3-blue.svg)](https://github.com/handoing/flutter_page_router)
+
+功能：
+- 模块化的、基于组件的路由配置
+- 可定义路由参数
+- 可定义视图过渡效果（内置flutter_page_transition）
+- 外部不依赖Context的编程式的导航
+- 全局钩子
 
 ## Getting Started
+
+引入依赖项
+
+```yaml
+flutter_page_router:
+  git:
+    url: git://github.com/handoing/flutter_page_router.git
+```
+
+使用：
 
 ```dart
 FlutterPageRouter routerInit () {
@@ -10,7 +29,6 @@ FlutterPageRouter routerInit () {
   FlutterPageRouter router = FlutterPageRouter(
       routes: [
         {
-          r.type: RouterType.Default,
           r.name: 'home',
           r.component: (params) => HomePage()
         },
@@ -48,16 +66,8 @@ FlutterPageRouter routerInit () {
       ]
   );
 
-  router.registerDidPush(() {
-    print('registerPush');
-  });
-
-  router.registerDidPop(() {
-    print('registerPop');
-  });
-
   router.globalBeforeRouteUpdate((name, params, child) {
-    print('globalBeforeRouteUpdate');
+    // 可以统一处理PV，或外包一个逻辑组件等
     return Container(
       child: child,
     );
@@ -78,13 +88,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       navigatorKey: router.navKey,
-      onGenerateRoute: router.generator,
-      navigatorObservers: [
-        router.observer
-      ],
+      initialRoute: 'home',
+      onGenerateRoute: router.generator
     );
   }
 }
 
 void main() => runApp(MyApp());
 ```
+
+## License
+
+[MIT](LICENSE)
