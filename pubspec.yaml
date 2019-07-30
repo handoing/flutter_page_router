@@ -1,6 +1,6 @@
 name: flutter_page_router
-description: A new Flutter page router.
-version: 0.0.3
+description: A front-end develop-oriented Routing Manage library that route params, context less programmatic navigation and global hooks.
+version: 0.1.0
 author: handoing <chenhandoing@gmail.com>
 homepage: https://github.com/handoing/flutter_page_router
 

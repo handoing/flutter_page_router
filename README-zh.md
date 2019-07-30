@@ -1,47 +1,47 @@
 # flutter_page_router
 
-A front-end develop-oriented Routing Manage library that route params, context less programmatic navigation and global hooks.
+一个面向前端开发者的flutter的路由管理库，可定义路由参数、无context的导航式路由和全局钩子等。
 
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/handoing/flutter_page_router)
 
-[README in Chinese](README-zh.md)
+[README in English](README.md)
 
-#### Features：
-- Modular, component-based router configuration
-- Route params
-- View transition effects（dependent on [flutter_page_transition](https://github.com/handoing/flutter_page_transition)）
-- Context less programmatic navigation
-- Global hooks
+#### 主要功能有：
+- 模块化的、基于组件的路由配置
+- 可定义路由参数
+- 可定义视图过渡效果（依赖[flutter_page_transition](https://github.com/handoing/flutter_page_transition)）
+- 外部不依赖Context的编程式的导航
+- 全局钩子
 
 ## Getting Started
 
-Add this to your package's pubspec.yaml file:
+pubspec.yaml中添加flutter_page_router依赖：
 ```yaml
 dependencies:
   flutter_page_router: ^0.1.0
 ```
-You can also depend on this package stored in my repository:
+或者添加github仓库的依赖：
 ```yaml
-flutter_page_router:
+flutter_page_transition:
   git:
     url: git://github.com/handoing/flutter_page_router.git
 ```
-You should then run `flutter packages upgrade`.
+记得执行 `flutter packages upgrade` 更新依赖。
 
 ## Example：
 
 ```dart
 FlutterPageRouter routerInit () {
 
-  // Define some routes
+  // 定义路由映射
   List routes = [
     {
-      r.name: 'home', // Define route name
-      r.component: (params) => HomePage() // Define route component
+      r.name: 'home', // 定义路由名称
+      r.component: (params) => HomePage() // 定义路由组件
     },
     {
       r.name: 'other',
-      r.transitionType: PageTransitionType.slideInRight, // Define route transition type
+      r.transitionType: PageTransitionType.slideInRight, // 定义路由过渡类型
       r.component: (params) {
         return new FutureBuilder<String>(
           future: Future.delayed(Duration(milliseconds: 1000)),
@@ -58,7 +58,7 @@ FlutterPageRouter routerInit () {
       }
     },
     {
-      r.type: RouterType.NotFound, // Define not found
+      r.type: RouterType.NotFound, // 定义not found
       r.transitionHandle: (Curve curve, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
         return new SlideTransition(
           position: new Tween<Offset>(
@@ -67,19 +67,19 @@ FlutterPageRouter routerInit () {
           ).animate(CurvedAnimation(parent: animation, curve: curve)),
           child: child,
         );
-      }, // Define route transition handle
+      }, // 定义路由过渡效果
       r.component: (params) => NotFoundPage()
     }
   ];
 
-  // Create the router instance
+  // 创建路由实例
   FlutterPageRouter router = FlutterPageRouter(
       routes: routes
   );
 
-  // Define global before hooks
+  // 全局前置钩子
   router.globalBeforeRouteUpdate((name, params, child) {
-    // Requests PV can be sent uniformly, or wrap a logic component and so on
+    // 可以统一处理PV，或外包一个逻辑组件等
     return Container(
       child: child,
     );
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FlutterPageRouter router = routerInit(); // Initialization Router
+    FlutterPageRouter router = routerInit(); // 初始化路由
 
     return MaterialApp(
       title: 'Flutter',
@@ -100,8 +100,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialRoute: 'home',
-      navigatorKey: router.navKey, // Define navigator Key, used to internally capture context
-      onGenerateRoute: router.generator // Define generator
+      navigatorKey: router.navKey, // 定义导航的Key，用来内部获取context
+      onGenerateRoute: router.generator // 定义generator
     );
   }
 }
@@ -111,8 +111,8 @@ void main() => runApp(MyApp());
 
 ## PageRouterNav
 
-[flutter_page_router](https://github.com/handoing/flutter_page_router) provides a PageRouterNav for developers to route navigation operations, it's internal use is still Navigator, call a variety of navigation operations provided by Navigator, such as push, pushNamed, pop, etc. The convenience of PageRouterNav is that there is no need to pass in the context.
-for example：
+[flutter_page_router](https://github.com/handoing/flutter_page_router)提供了一个PageRouterNav供开发者进行路由导航操作，其内部使用的还是Navigator，可调用Navigator提供的多种导航操作，例如push、pushNamed、pop等，PageRouterNav方便之处在于不需要传入context。
+如下：
 
 ```dart
 PageRouterNav.pushNamed('other');
