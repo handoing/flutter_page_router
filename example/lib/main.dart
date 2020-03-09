@@ -5,11 +5,11 @@ import './router/index.dart';
 
 void main() => runApp(MyApp());
 
+FlutterPageRouter router = routerInit();
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    FlutterPageRouter router = routerInit();
 
     return MaterialApp(
       title: 'Flutter',
