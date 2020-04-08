@@ -88,12 +88,11 @@ FlutterPageRouter routerInit () {
   return router;
 }
 
+FlutterPageRouter router = routerInit(); // Initialization Router
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    FlutterPageRouter router = routerInit(); // Initialization Router
-
     return MaterialApp(
       title: 'Flutter',
       theme: ThemeData(
